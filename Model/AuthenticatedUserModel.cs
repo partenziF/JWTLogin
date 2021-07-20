@@ -22,8 +22,7 @@ namespace JWTLogin.Model {
         public string Email { get; set; }
 
         public DateTime LastLogin { get; set; }
-
-        [JsonIgnore]
+      
         public string Role { get; set; }
         [JsonIgnore]
         public string Password { get; set; }
