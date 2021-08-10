@@ -9,7 +9,7 @@ namespace JWTLogin.Helpers {
         public JWTLoginIdentity( string authenticationType ) : base( authenticationType ) {
         }
 
-        public uint UserID { get; set; }
+        public uint AccountID { get; set; }
 
         public uint LoginId { get; set; }
 

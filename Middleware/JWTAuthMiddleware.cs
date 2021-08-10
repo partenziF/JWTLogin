@@ -36,7 +36,7 @@ namespace JWTLogin.Middleware {
                     if ( user is not null ) {
 
                         JWTLoginIdentity identity = new JWTLoginIdentity( "JWTLogin" );
-                        identity.UserID = user.UserID;
+                        identity.AccountID = user.UserID;
                         identity.Session = SessionID;
                         identity.LoginId = user.LoginID;
                         
