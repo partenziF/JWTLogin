@@ -11,6 +11,7 @@ namespace JWTLogin.Helpers {
 
         public uint AccountID { get; set; }
 
+        public string Role { get; set; }
         public uint LoginId { get; set; }
 
         public string Session { get; set; }
