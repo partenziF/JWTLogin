@@ -31,15 +31,17 @@ namespace JWTLogin.Middleware {
                     ClaimsPrincipal principal = context.User as ClaimsPrincipal;
 
                     var SessionID = principal.FindFirstValue( "Session" );
+                    var Role = principal.FindFirstValue( ClaimTypes.Role );
                     var user = await tokenService.GetAuthenticatedUserBySessionAsync( SessionID );
 
-                    if ( user is not null ) {
+                    if (( user is not null ) && ( Role == user.Role)) {
 
                         JWTLoginIdentity identity = new JWTLoginIdentity( "JWTLogin" );
                         identity.AccountID = user.UserID;
                         identity.Session = SessionID;
                         identity.LoginId = user.LoginID;
-                        
+                        identity.Role = user.Role;
+                                               
                         context.User.AddIdentity( identity );
 
                     } else {

@@ -54,21 +54,29 @@ namespace JWTLogin.AuthenticationHandler {
 
 
             var token = AuthorizationValue.FirstOrDefault()?.Split( " " ).Last();
-            
+
 
             try {
 
                 var (principal, jwtToken) = tokenService.ValidateToken( token );
+
 
                 var expiryDateUnix = long.Parse( principal.Claims.Single( x => x.Type == JwtRegisteredClaimNames.Exp ).Value );
 
                 var expiryDateTimeUtc = new DateTime( 1970 , 1 , 1 , 0 , 0 , 0 , DateTimeKind.Utc ).AddSeconds( expiryDateUnix );
 
                 if ( expiryDateTimeUtc < DateTime.UtcNow ) {
-                    return AuthenticateResult.Fail( "Expired token.");
+                    return AuthenticateResult.Fail( "Expired token." );
                 }
-                            
+
+
+                
+                //var identity = new ClaimsIdentity( principal.Identity );
+                //identity.AddClaim( new Claim( ClaimTypes.Role , "Admin" ) );
+                //var newprincipal = new ClaimsPrincipal( identity );
+
                 var ticket = new AuthenticationTicket( principal , Options.Scheme );
+                //var ticket = new AuthenticationTicket( newprincipal , Options.Scheme );
 
                 //await Context.SignInAsync( principal );
                 //JWTLoginIdentity identity = new JWTLoginIdentity( "JWTLogin" );
@@ -80,7 +88,7 @@ namespace JWTLogin.AuthenticationHandler {
 
                 //return x;
                 //return AuthenticateResult.NoResult();
-                
+
 
 
 
@@ -97,7 +105,7 @@ namespace JWTLogin.AuthenticationHandler {
                 //    var ticket = new AuthenticationTicket( principal , Scheme.Name );
                 //    return AuthenticateResult.Success( ticket );
 
-            } catch ( SecurityTokenExpiredException) {
+            } catch ( SecurityTokenExpiredException ) {
                 return AuthenticateResult.Fail( "Expired token." );
             } catch ( SecurityTokenException ) {
                 return AuthenticateResult.Fail( "Can't validate token." );

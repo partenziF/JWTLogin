@@ -99,6 +99,10 @@ namespace JWTLogin.Services {
                 } ,
                 out SecurityToken validatedToken );
 
+
+            
+            
+            
             //var jwtToken = ( JwtSecurityToken ) validatedToken;
 
             return (principal, ( JwtSecurityToken ) validatedToken);
